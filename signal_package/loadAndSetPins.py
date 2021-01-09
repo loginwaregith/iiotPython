@@ -1,7 +1,6 @@
 #GETTTING ALL THE ACTUAL PIN NUMBERS FROM DATABASE
 import RPi.GPIO as GPIO
 
-
 def getAndSetupPins(self):
    conn=self.connection
    curs=self.cursor

@@ -1,14 +1,10 @@
 class  cncSignalsTracker():
      def __init__(self,):
-        pass
+          pass
      
-     from .configure import configure
+     from .initialSetup import configure
 
      from .loadAndSetPins import getAndSetupPins
-
-     from .getMachineId import loadMachineNameFromDB
-
-     from .initialDbSetup import initialDBSetup
 
      from .start import start
 

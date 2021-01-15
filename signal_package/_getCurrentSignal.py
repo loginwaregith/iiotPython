@@ -4,6 +4,7 @@ import requests as req
 import json
 from ._globalVariables import PRODUCTION_ARRAY
 from ._holdMachine import holdMachine
+import Rpi.GPIO as GPIO
 
 #PRODUCTION MATCHING ARRAY
 PRODUCTION_ARRAY=["cycleON","m30OFF"]
@@ -33,7 +34,7 @@ TEMP_PRODUCTION_ARRAY =  []
 def getCurrentSignal(self,InputPin,processOn,processOff):
     flag=int(getFlagStatus(processOn))
     #Read signal from the Raspberry pi 
-    SignalStatus=1
+    SignalStatus=GPIO.input(InputPin)
     #check the time at which this signal is raised
     timeObj = datetime.now()
     timeStamp=timeObj.strftime("%Y/%m/%d %H:%M:%S")

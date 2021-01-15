@@ -6,7 +6,7 @@ from sqlalchemy import exc,cast,Date,func,and_
 import requests as req
 import json
 from datetime import datetime,timedelta,time
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 from flask_cors import CORS, cross_origin
 import configuration as config
 from models import *
@@ -72,10 +72,10 @@ def hold_machine():
     if(holdingStatus=="Hold Machine"):
        if(state=='Hold'):
           print("holding machine....")
-          #GPIO.output(holdingPin,False)
+          GPIO.output(holdingPin,False)
        else:
           print("releasing machine....")
-          #GPIO.output(holdingPin,True) 
+          GPIO.output(holdingPin,True) 
     else:
        if(state=='Hold'):
             print("holding machine....")

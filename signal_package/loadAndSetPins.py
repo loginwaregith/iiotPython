@@ -8,21 +8,21 @@ def getAndSetupPins(self):
    curs.execute("SELECT * FROM pinout")
    for row in curs.fetchall():
       if(row[2]=="machine"):
-          self.machineSignalInputPin=row[3] 
+          self.machineSignalInputPin=int(row[3]) 
       elif(row[2]=="cycle"):
-          self.cycleSignalInputPin=row[3]
+          self.cycleSignalInputPin=int(row[3])
       elif(row[2]=="alarm"):
-          self.alarmSignalInputPin=row[3]
+          self.alarmSignalInputPin=int(row[3])
       elif(row[2]=="emergency"):
-          self.emergencySignalInputPin=row[3]
+          self.emergencySignalInputPin=int(row[3])
       elif(row[2]=="reset"):
-          self.resetSignalInputPin=row[3]
+          self.resetSignalInputPin=int(row[3])
       elif(row[2]=="m30"):
-          self.m30SignalInputPin=row[3]
+          self.m30SignalInputPin=int(row[3])
       elif(row[2]=="runoutnotok"):
-          self.runOutNotOkSignalInputPin=row[3]
+          self.runOutNotOkSignalInputPin=int(row[3])
       elif(row[2]=="spindle"):
-          self.spindleSignalInputPin=row[3]   
+          self.spindleSignalInputPin=int(row[3])   
 
    print("Initilizing the gpio pins of raspberry pi .....")
    GPIO.setmode(GPIO.BOARD)

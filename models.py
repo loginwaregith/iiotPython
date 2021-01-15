@@ -1,6 +1,7 @@
+#import db object from api
 from api import db
 
-
+#signal class 
 class signals(db.Model):
     id = db.Column(db.INT, primary_key=True)
     machineId = db.Column(db.String)

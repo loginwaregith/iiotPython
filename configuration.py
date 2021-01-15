@@ -1,5 +1,14 @@
+#main.py file configuration part
 DATABASENAME = "erp.db"   #if db file is located somewhere please mention fullpath
 LOCALSERVER_IPADDRESS = "127.0.0.1"
 PORT =  '5002'
 HEADERS = {'Content-Type': 'application/json'}
-HOLD_MACHINE_ENDPOINT = '/HoldMachine'
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + 'erp.db'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+SECRET_KEY =  b'_5#y2L"F4Q8z\n\xec]/'
+CORS_HEADERS = 'Content-Type'
+SERVER_IP = '182.75.179.210'
+SERVER_ENDPOINT_START = '/BE/api/iiot'
+
+
+#api.py file configuration part

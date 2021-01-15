@@ -7,10 +7,10 @@ from time import sleep
 import sqlite3 
 import requests as req
 from datetime import datetime
-
+from configuration import config
 
 #making a connection with the database
-conn2=sqlite3.connect('erp.db')
+conn2=sqlite3.connect(config.DATABASENAME)
 
 #create a cursor object to exceute all sql queries
 curs2=conn2.cursor()
@@ -147,15 +147,15 @@ def SendProductionData(endpoint):
 while(1):
 
     #Function call of 'SendLiveStatus' Function
-    SendLiveStatus("http://182.75.179.210/be/api/iiot/PostMachineStatus")
+    SendLiveStatus("http://"+config.SERVER_IP+config.SERVER_ENDPOINT_START+"/PostMachineStatus")
 
     #Function call of 'SendProductionData' Function
-    SendProductionData("http://182.75.179.210/be/api/iiot/Production")
+    SendProductionData("http://"+config.SERVER_IP+config.SERVER_ENDPOINT_START+"/Production")
 
     #Function call of 'SendAlarmData' Function
-    SendAlarmData("http://182.75.179.210/be/api/iiot/AlarmInfo")
+    SendAlarmData("http://"+config.SERVER_IP+config.SERVER_ENDPOINT_START+"/AlarmInfo")
     
-    #wait for 2 seconds 
+    #wait for 5 seconds 
     sleep(5)
         
                               

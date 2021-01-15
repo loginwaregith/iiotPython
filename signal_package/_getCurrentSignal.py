@@ -1,10 +1,9 @@
-# import RPi.GPIO as GPIO
 from datetime import datetime
 import requests as req
 import json
 from ._globalVariables import PRODUCTION_ARRAY
 from ._holdMachine import holdMachine
-import Rpi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 #PRODUCTION MATCHING ARRAY
 PRODUCTION_ARRAY=["cycleON","m30OFF"]
@@ -32,7 +31,7 @@ m30flag=0
 TEMP_PRODUCTION_ARRAY =  []
 
 def getCurrentSignal(self,InputPin,processOn,processOff):
-    flag=int(getFlagStatus(processOn))
+    flag=getFlagStatus(processOn)
     #Read signal from the Raspberry pi 
     SignalStatus=GPIO.input(InputPin)
     #check the time at which this signal is raised
@@ -72,9 +71,9 @@ def getCurrentSignal(self,InputPin,processOn,processOff):
             holdMachine(self,)
         elif process=="m30OFF":
             TEMP_PRODUCTION_ARRAY.append(process)
-        if(PRODUCTION_ARRAY==TEMP_PRODUCTION_ARRAY):
-            print("Array matched")
-            productionOk(self,)                                                                       
+            if(PRODUCTION_ARRAY==TEMP_PRODUCTION_ARRAY):
+               print("Array matched")
+               productionOk(self,)                                                                       
         else:
             pass
 
@@ -111,6 +110,7 @@ def updateLiveStatus(self,status,signal,color):
          print("failed to update live status")          
 
 def getFlagStatus(process):
+          global cycleflag,spindleflag,machineflag,m30flag,resetflag,emergencyflag,alarmflag,runoutnotokflag
           if(process=="cycleON" or process=="cycleOFF"):
               return cycleflag
           elif(process=="spindleON" or process=="spindleOFF"):
@@ -129,6 +129,7 @@ def getFlagStatus(process):
               return  runoutnotokflag
 
 def setFlagStatus(process,flag):
+          global cycleflag,spindleflag,machineflag,m30flag,resetflag,emergencyflag,alarmflag,runoutnotokflag
           if(process=="cycleON" or process=="cycleOFF"):
               cycleflag=flag
               return cycleflag

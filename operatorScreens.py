@@ -1,13 +1,14 @@
 from flask import Blueprint,request,jsonify
 from datetime import datetime,timedelta,time
-from models import *
 from sqlalchemy import exc,cast,Date,func,and_
 import requests as req
 import json
 from api import db
 import configuration as config
+from models import *
 
 operator = Blueprint('operator',__name__)
+
 
 @operator.route('/login', methods=['GET', 'POST'])
 def login():
@@ -72,7 +73,7 @@ def login():
 def loadScreen():
    #save shift data to databse
    try:
-       url="http://" + config.SERVER_IP + config.SERVER_ENDPOINT_START +"/ShiftList"      
+       url="http://"+config.SERVER_IP+config.SERVER_ENDPOINT_START+"/ShiftList"      
        res=req.get(url,timeout=2)
        datas=res.json()
        for data in datas: 

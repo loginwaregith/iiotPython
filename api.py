@@ -9,7 +9,6 @@ from datetime import datetime,timedelta,time
 import RPi.GPIO as GPIO
 from flask_cors import CORS, cross_origin
 import configuration as config
-from models import *
 
 
 #VARIABLE THAT HOLDS THE HOLDING RELAY PIN NUMBER
@@ -17,22 +16,6 @@ global holdingPin
 #VARIABLE THAT HOLDS THE HOLDING STATUS / BYPASS MACHINE OR HOLD MACHINE
 holdingStatus = ""
 
-#GET THE HOLDING PIN NUMBER AND HOLDING STATUS FROM LOCAL DATABASE
-try : 
-    result=otherSettings.query.get(1)
-    holdingPin=int(result.holdingRelay)
-    holdingStatus=result.machineBypass
-    print(holdingPin)
-    print(holdingStatus)
-except Exception as e:
-    print(e,"error getting status of holding ")
-    #IF WE FAIL TO GET THE HOLDING CREDENTIAL THEN SET PIN 7 BY DEFAULT AS HOLDING PIN AND HOLDING STATUS AS BYPASS
-    holdingPin=7
-    holdingStatus="ByPass Machine"
-
-#GET UP GPIO PINS OF RASPBERRY PI
-# GPIO.setmode(GPIO.BCM)
-# GPIO.setup(holdingPin,GPIO.OUT)
 
 #CREATE A APP OBJECT
 app = Flask(__name__)
@@ -55,7 +38,22 @@ from operatorScreens import operator
 app.register_blueprint(admin)
 app.register_blueprint(operator)
 
+#GET THE HOLDING PIN NUMBER AND HOLDING STATUS FROM LOCAL DATABASE
+try : 
+    result=otherSettings.query.get(1)
+    holdingPin=int(result.holdingRelay)
+    holdingStatus=result.machineBypass
+    print(holdingPin)
+    print(holdingStatus)
+except Exception as e:
+    print(e,"error getting status of holding ")
+    #IF WE FAIL TO GET THE HOLDING CREDENTIAL THEN SET PIN 7 BY DEFAULT AS HOLDING PIN AND HOLDING STATUS AS BYPASS
+    holdingPin=7
+    holdingStatus="ByPass Machine"
 
+#GET UP GPIO PINS OF RASPBERRY PI
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(holdingPin,GPIO.OUT)
 
 #SHUTDOWN FEATURE 
 @app.route('/shutdown', methods=['GET', 'POST'])

@@ -8,7 +8,7 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 SECRET_KEY =  b'_5#y2L"F4Q8z\n\xec]/'
 CORS_HEADERS = 'Content-Type'
 SERVER_IP = '182.75.179.210'
-SERVER_ENDPOINT_START = '/BE/api/iiot'
+SERVER_ENDPOINT_START = '/be/api/iiot'
 
 
 #api.py file configuration part

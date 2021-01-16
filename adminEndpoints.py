@@ -1,6 +1,7 @@
 from flask import Blueprint,request,jsonify
 from models import *
-from api import db
+from flask_sqlalchemy import SQLAlchemy
+
 
 admin = Blueprint('admin',__name__)
 
@@ -9,7 +10,7 @@ def getServerIP():
    try:
        result=serverConf.query.get(1)
        if result != None:
-          serverIp=result.endpoint
+          serverIp=result.ip
           print(serverIp)
           return jsonify({"result": {"status":1,"data":serverIp,"message":"success"}})
        else:
@@ -68,7 +69,7 @@ def UpdatenetworkDetails():
 
 
 
-@admin.route('/updateSIgnalsDetails', methods=['POST'])
+@admin.route('/updateSignalsDetails', methods=['POST'])
 def UpdateSignalskDetails():
    resultList=[]
    objinList={}

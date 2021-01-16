@@ -9,6 +9,9 @@ from datetime import datetime,timedelta,time
 import RPi.GPIO as GPIO
 from flask_cors import CORS, cross_origin
 import configuration as config
+from models import *
+from adminEndpoints import admin 
+from operatorScreens import operator
 
 
 #VARIABLE THAT HOLDS THE HOLDING RELAY PIN NUMBER
@@ -28,11 +31,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = config.SQLALCHEMY_TRACK_MODIFICAT
 app.secret_key = config.SECRET_KEY
 
 #SQLALCHEMY DB OBJECT
-db=SQLAlchemy(app)
-
-from models import *
-from adminEndpoints import admin 
-from operatorScreens import operator
+db.app = app
+db.init_app(app)
 
 #REGISTER ALL THE ADMIN AND OPERATOR ENDPOINTS
 app.register_blueprint(admin)
@@ -46,12 +46,12 @@ try :
     print(holdingPin)
     print(holdingStatus)
 except Exception as e:
-    print(e,"error getting status of holding ")
+    print(e,"error getting status of holding Relay")
     #IF WE FAIL TO GET THE HOLDING CREDENTIAL THEN SET PIN 7 BY DEFAULT AS HOLDING PIN AND HOLDING STATUS AS BYPASS
     holdingPin=7
     holdingStatus="ByPass Machine"
 
-#GET UP GPIO PINS OF RASPBERRY PI
+# GET UP GPIO PINS OF RASPBERRY PI
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(holdingPin,GPIO.OUT)
 
@@ -75,20 +75,18 @@ def hold_machine():
           print("releasing machine....")
           GPIO.output(holdingPin,True) 
     else:
-       if(state=='Hold'):
-            print("holding machine....")
-       else:
-            print("releasing machine....")   
+          #Bypass the machine
+          GPIO.output(holdingPin,True)  
     return ("",204)
      
 @app.route('/getCurrentSignal', methods=['GET', 'POST'])
 def returnCurrentSignal():
   username=request.get_json()['userName'];
-  liveSignalCode = 0
+  liveSignal = "Machine Idle"
   try:
       result=liveStatus.query.get(1)
       if result is not None: 
-          liveSignalCode=int(result.status)
+          liveSignal=result.signalName
   except Exception as e:
       print(e,"failed to get live Status code")        
   CurrentDate=datetime.now().date()
@@ -104,9 +102,9 @@ def returnCurrentSignal():
   try:  
       productionCount=db.session.query(production).filter(and_(production.status.like("1"),production.operatorName.like(username),production.date.like(presentDate))).count()
       print(result) 
-      return (jsonify({'result':{"status":1,"liveSignal":liveSignalCode,"production":productionCount}}))
+      return (jsonify({'result':{"status":1,"liveSignal":liveSignal,"production":productionCount}}))
   except:
-      return (jsonify({'result':{"status":0,"liveSignal":liveSignalCode,"production":0}}))
+      return (jsonify({'result':{"status":0,"liveSignal":liveSignal,"production":0}}))
 
 #START THE SERVER AT PORT 5002 
 if __name__ == "__main__":

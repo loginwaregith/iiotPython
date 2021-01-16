@@ -45,17 +45,17 @@ def getCurrentSignal(self,InputPin,processOn,processOff):
         setFlagStatus(process,1)
         insertSignalToLocalDb(self,self.machineId,process,timeStamp)
         if process=="alarmON":
-            updateLiveStatus(self,LIVE_STATUS_CODES['alarm'],"alarmON","red")
+            updateLiveStatus(self,LIVE_STATUS_CODES['alarm'],"Alarm","red")
             holdMachine(self,)
         elif process=="machineON":
-            updateLiveStatus(self,LIVE_STATUS_CODES['machineIdle'],"MachineIdle","orange")
+            updateLiveStatus(self,LIVE_STATUS_CODES['machineIdle'],"Machine Idle","orange")
             holdMachine(self,)
         elif process=="emergencyON":
-            updateLiveStatus(self,LIVE_STATUS_CODES['emergency'],"emergencyON","red")
+            updateLiveStatus(self,LIVE_STATUS_CODES['emergency'],"Emergency","red")
         elif process=="cycleON":
             TEMP_PRODUCTION_ARRAY=[]
             TEMP_PRODUCTION_ARRAY.append(process)
-            updateLiveStatus(self,LIVE_STATUS_CODES['cycle'],"cycleON","green")                          
+            updateLiveStatus(self,LIVE_STATUS_CODES['cycle'],"Cycle","green")                          
         else:
             pass
 
@@ -67,7 +67,7 @@ def getCurrentSignal(self,InputPin,processOn,processOff):
         setFlagStatus(process,0)
         insertSignalToLocalDb(self,self.machineId,process,timeStamp)
         if (process=="emergencyOFF" or process=="cycleOFF" or process=="alarmOFF"):
-            updateLiveStatus(self,LIVE_STATUS_CODES['machineIdle'],"machineIdle","orange") 
+            updateLiveStatus(self,LIVE_STATUS_CODES['machineIdle'],"Machine Idle","orange") 
             holdMachine(self,)
         elif process=="m30OFF":
             TEMP_PRODUCTION_ARRAY.append(process)

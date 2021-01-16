@@ -1,5 +1,6 @@
-#import db object from api
-from api import db
+from flask_sqlalchemy import SQLAlchemy
+
+db=SQLAlchemy()
 
 #signal class 
 class signals(db.Model):
@@ -88,7 +89,7 @@ class energyMeter(db.Model):
 
 class serverConf(db.Model):
     id = db.Column(db.INT, primary_key=True)
-    endpoint = db.Column(db.String)
+    ip = db.Column(db.String)
 
 
 class networkConf(db.Model):

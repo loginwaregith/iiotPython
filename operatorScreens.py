@@ -3,7 +3,6 @@ from datetime import datetime,timedelta,time
 from sqlalchemy import exc,cast,Date,func,and_
 import requests as req
 import json
-from api import db
 import configuration as config
 from models import *
 
@@ -73,8 +72,9 @@ def login():
 def loadScreen():
    #save shift data to databse
    try:
-       url="http://"+config.SERVER_IP+config.SERVER_ENDPOINT_START+"/ShiftList"      
-       res=req.get(url,timeout=2)
+       url="http://"+config.SERVER_IP+config.SERVER_ENDPOINT_START+"/ShiftList" 
+       print(url)     
+       res=req.get(url,timeout=4)
        datas=res.json()
        for data in datas: 
           idNew=data['ID']
@@ -92,8 +92,9 @@ def loadScreen():
                 db.session.add(shiftObj)
                 db.session.commit() 
                 print("added shift data to datbase") 
-          except exc.IntegrityError:
-             db.session.rollback()        
+          except Exception as e:
+             print(e)
+                     
    except:
        print("something went wrong while getting shift data...." )
 
@@ -126,6 +127,7 @@ def loadScreen():
           print("no other settings data in database")
       return jsonify({"result": {"message":"success","status":1,"data":data}})      
    except Exception as e:
+      print(e) 
       return jsonify({"result": {"messgae":"something went wrong","status":0,"data":{}}})
 
 

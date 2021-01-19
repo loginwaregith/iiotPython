@@ -7,7 +7,7 @@ from time import sleep
 import sqlite3 
 import requests as req
 from datetime import datetime
-from configuration import config
+import configuration as config
 
 #making a connection with the database
 conn2=sqlite3.connect(config.DATABASENAME)

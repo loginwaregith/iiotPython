@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: signal-package
+Version: 0.1
+Summary: CNC Machine Signals COllection package
+Home-page: UNKNOWN
+Author: Gautam Patil
+Author-email: gautampatil728gp4@gmail.com
+License: UNKNOWN
+Description: This package helps in collecting signals from cnc machine and store in local db
+Platform: UNKNOWN

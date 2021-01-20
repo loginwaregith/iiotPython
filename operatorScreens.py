@@ -161,7 +161,7 @@ def operatorScreen():
             nowShift="Second" 
 
     timeObj = datetime.now()
-    time=timeObj.strftime("%Y/%m/%d %H:%M:%S")
+    var_time=timeObj.strftime("%Y/%m/%d %H:%M:%S")
     CurrentDate=datetime.now().date()
     CurrentTime=datetime.now().time()
     sihTime=time(6, 59,59)
@@ -170,7 +170,7 @@ def operatorScreen():
     else:
          date=CurrentDate
     presentDate=date.strftime("%Y-%m-%d")
-    productionObj=production(operatorName=username,jobId=jobId,shift=shift,component=component,modelName=model,operation=operation,cycleTime="5.5",inspectionStatus="0",status="0",timeStamp=time,machineId=machineId,date=presentDate)
+    productionObj=production(operatorName=username,jobId=jobId,shift=shift,component=component,modelName=model,operation=operation,cycleTime="5.5",inspectionStatus="0",status="0",timeStamp=var_time,machineId=machineId,date=presentDate)
     try:
          db.session.add(productionObj)
          db.session.commit()

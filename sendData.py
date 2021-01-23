@@ -105,7 +105,7 @@ def SendProductionData(endpoint):
            liveStatusResult=curs2.fetchone()
            if liveStatusResult is not None: 
               signalName=liveStatusResult[5]
-              if signalName=='machineIdle':
+              if signalName=='Machine Idle':
                    curs2.execute("select * from production")
                    result=curs2.fetchall()           
                    if result is not None:

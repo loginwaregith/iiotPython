@@ -144,7 +144,7 @@ def SendProductionData(endpoint):
 
 
 #continously run the loop to send data to server every 2 seconds 
-while(1):
+'''while(1):
 
     #Function call of 'SendLiveStatus' Function
     SendLiveStatus("http://"+config.SERVER_IP+config.SERVER_ENDPOINT_START+"/PostMachineStatus")
@@ -156,7 +156,7 @@ while(1):
     SendAlarmData("http://"+config.SERVER_IP+config.SERVER_ENDPOINT_START+"/AlarmInfo")
     
     #wait for 5 seconds 
-    sleep(5)
+    sleep(5)'''
         
                               
 

@@ -107,8 +107,8 @@ def returnCurrentSignal():
       return (jsonify({'result':{"status":0,"liveSignal":liveSignal,"production":0}}))
 
 #START THE SERVER AT PORT 5002 
-if __name__ == "__main__":
-    app.run(port=5002,threaded=True,debug=True)
+'''if __name__ == "__main__":
+    app.run(port=5002,threaded=True,debug=True)'''
 
 
 

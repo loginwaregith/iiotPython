@@ -106,7 +106,10 @@ def SendProductionData(endpoint):
            if liveStatusResult is not None: 
               signalName=liveStatusResult[5]
               if signalName=='Machine Idle':
-                   curs2.execute("select * from production")
+                   curs2.execute("select * from production_status")
+                   idNo=curs2.fetchone()[1]
+                   print("Production Last value : " + str(idNo))
+                   curs2.execute("select * from production where id>(?) ",(idNo,))
                    result=curs2.fetchall()           
                    if result is not None:
                      data={}                     
@@ -127,9 +130,9 @@ def SendProductionData(endpoint):
 
                         response=req.post(endpoint,timeout=2,data=data)
                         if(response.status_code>=200 and response.status_code<=206):
-                                curs2.execute("delete from production where id=(?)",(Id,))
-                                conn2.commit()
-                                print("{} entry sent to server and  deleted from local database..".format(Id))    
+                              curs2.execute("update production_status set value=(?) where id=(?)",(Id,1))
+                              print("{} entry updated..").format(Id)
+                              conn2.commit()
                         else:
                               print("didnot get good response from server")
                               return        

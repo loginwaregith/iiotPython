@@ -53,7 +53,7 @@ def getCurrentSignal(self,InputPin,processOn,processOff):
         elif process=="emergencyON":
             updateLiveStatus(self,LIVE_STATUS_CODES['emergency'],"Emergency","red")
         elif process=="cycleON":
-            TEMP_PRODUCTION_ARRAY=[]
+            TEMP_PRODUCTION_ARRAY.clear()
             TEMP_PRODUCTION_ARRAY.append(process)
             updateLiveStatus(self,LIVE_STATUS_CODES['cycle'],"Cycle","green")                          
         else:
@@ -71,7 +71,7 @@ def getCurrentSignal(self,InputPin,processOn,processOff):
             holdMachine(self,)
         elif process=="m30OFF":
             TEMP_PRODUCTION_ARRAY.append(process)
-            if(PRODUCTION_ARRAY==TEMP_PRODUCTION_ARRAY):
+            if(PRODUCTION_ARRAY==TEMP_PRODUCTION_ARRAY[0:2]):
                print("Array matched")
                productionOk(self,)                                                                       
         else:

@@ -101,6 +101,12 @@ def SendLiveStatus(endpoint):
 def SendProductionData(endpoint):
    print("********************SENDING PRODUCTION DATA****************************")
    try:
+           curr_time = datetime.now()
+           formatted_time = curr_time.strftime('%H:%M:%S')
+           print("$$$$$$$$$$$$$$$$$",formatted_time)
+           if(str(formatted_time) == "16:00:00" or str(formatted_time) == "16:00:01" or str(formatted_time) == "16:00:02"):
+               curs2.execute("delete from production")
+               conn2.commit()
            curs2.execute("select * from live_status")
            liveStatusResult=curs2.fetchone()
            if liveStatusResult is not None: 

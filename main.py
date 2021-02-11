@@ -37,13 +37,13 @@ def process_of_sendData():
     while(1):
 
         #Function call of 'SendLiveStatus' Function
-        SendLiveStatus("http://192.168.1.189/BE/api/iiot/PostMachineStatus")
+        sendData_run.SendLiveStatus("http://"+conf.SERVER_IP+conf.SERVER_ENDPOINT_START+"/PostMachineStatus")
 
         #Function call of 'SendProductionData' Function
-        #SendProductionData("http://192.168.1.189/BE/api/iiot/Production")
+        sendData_run.SendProductionData("http://"+conf.SERVER_IP+conf.SERVER_ENDPOINT_START+"/Production")
 
         #Function call of 'SendAlarmData' Function
-        #SendAlarmData("http://192.168.1.189/BE/api/iiot/AlarmInfo")
+        #sendData_run.SendAlarmData("http://"+conf.SERVER_IP+conf.SERVER_ENDPOINT_START+"/AlarmInfo")
         
         #wait for 2 seconds 
         sleep(2)

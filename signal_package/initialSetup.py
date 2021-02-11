@@ -8,7 +8,7 @@ def configure(self,databaseName,headers,holdMachineUrl):
     #make the database connection 
     databaseConnection(self,databaseName) 
     print("Configuration done.....")
-    return
+    return  
 
 def databaseConnection(self,database):
     CONNECTION = sqlite.connect(database)

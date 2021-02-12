@@ -88,10 +88,12 @@ def insertSignalToLocalDb(self,machineId,process,timeStamp):
           print("unable to insert into local database")
 
 def productionOk(self,):
+      timeObj = datetime.now()
+      timeStamp=timeObj.strftime("%Y/%m/%d %H:%M:%S")
       data=self.cursor.execute("SELECT MAX(id) FROM production")
       lastId=self.cursor.fetchone()[0]
-      sql="update production set status=? where id=?"
-      values=("1",lastId)
+      sql="update production set status=?,timeStamp=? where id=?"
+      values=("1",timeStamp,lastId)
       try:
           result=self.cursor.execute(sql,values)
           self.connection.commit()

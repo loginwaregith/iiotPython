@@ -120,6 +120,7 @@ def SendProductionData(endpoint):
                    if result is not None:
                      data={}                     
                      for colm in result:
+                        sleep(4)
                         Id=colm[0]
                         data["ID"]=colm[0]
                         data["OperatorName"]=colm[1]
@@ -130,7 +131,8 @@ def SendProductionData(endpoint):
                         data["Operation"]=colm[6]
                         data["CycleTime"]=float(colm[7])
                         data["InspectionStatus"]=colm[8]
-                        data["Status"]=colm[9]
+                        Status_data=int(colm[9])
+                        data["Status"]=bool(Status_data)
                         data["TimeStamp"]=datetime.strptime(colm[10], '%Y/%m/%d %H:%M:%S') 
                         data["MachineID"]=colm[11]
 
